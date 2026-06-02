@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buyer Journey — DBRE Advisor Field Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal: #1A1A1A; --charcoal-mid: #2A2A2A; --charcoal-soft: #333333;
+      --gold: #C9A84C; --gold-light: #D4AF6A; --gold-pale: #F5EDD8;
+      --gold-border: rgba(201,168,76,0.25);
+      --cream: #FAF7F2; --cream-dark: #F0EBE0; --white: #FFFFFF;
+      --body: #3A3A3A; --body-mid: #5A5A5A; --muted: #7A7268;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--body); font-size: 13.5px; line-height: 1.75; }
+
+    .site-header { background: var(--charcoal); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 200; }
+    .header-brand { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 15px; letter-spacing: 0.08em; }
+    .header-sub { color: rgba(255,255,255,0.4); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 3px; }
+    .header-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; }
+
+    .hero { background: var(--charcoal-mid); padding: 52px 48px 44px; border-bottom: 1px solid var(--gold-border); }
+    .hero-inner { max-width: 960px; margin: 0 auto; }
+    .hero-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 10px; }
+    .hero-sub { color: rgba(255,255,255,0.45); font-size: 13px; max-width: 600px; line-height: 1.7; margin-bottom: 24px; }
+    .gold-rule { width: 48px; height: 2px; background: var(--gold); border: none; margin: 20px 0; }
+    .hero-promise { display: inline-block; font-size: 11px; font-style: italic; color: rgba(201,168,76,0.75); border-top: 1px solid rgba(201,168,76,0.25); padding-top: 14px; }
+
+    .phase-map { background: var(--charcoal-soft); border-bottom: 1px solid var(--gold-border); padding: 0 48px; display: flex; overflow-x: auto; }
+    .phase-tab { padding: 16px 22px; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; color: rgba(255,255,255,0.38); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: color 0.2s, border-color 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'Montserrat', sans-serif; display: flex; align-items: center; gap: 8px; }
+    .phase-tab:hover { color: var(--gold-light); }
+    .phase-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .phase-tab-num { width: 20px; height: 20px; background: rgba(201,168,76,0.15); color: var(--gold); border-radius: 50%; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+    .phase-tab.active .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+
+    .main { max-width: 960px; margin: 0 auto; padding: 48px 48px 80px; }
+
+    .phase-intro { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--gold-border); }
+    .phase-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .phase-intro h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--charcoal); margin-bottom: 10px; }
+    .phase-intro p { font-size: 13px; color: var(--body-mid); max-width: 680px; line-height: 1.8; }
+
+    .flow-map { background: var(--white); border: 1px solid var(--gold-border); border-radius: 6px; padding: 24px 28px; margin-bottom: 36px; }
+    .flow-map-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .flow-steps { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .flow-step { display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px; background: var(--cream); border: 1px solid var(--gold-border); border-radius: 4px; font-size: 11.5px; font-weight: 500; color: var(--charcoal); }
+    .flow-step-num { width: 22px; height: 22px; background: var(--gold); color: var(--charcoal); border-radius: 50%; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .flow-arrow { color: var(--gold); font-size: 16px; padding: 0 2px; line-height: 1; }
+    .flow-decision { background: var(--gold-pale); border-color: var(--gold); border-radius: 20px; }
+    .flow-milestone { background: var(--charcoal); border-color: var(--gold); }
+    .flow-milestone .flow-step-num { background: var(--charcoal-soft); }
+    .flow-milestone span { color: var(--gold); font-weight: 600; }
+
+    .steps { margin-bottom: 40px; }
+    .steps-heading { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--body-mid); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .step-block { display: flex; gap: 18px; padding: 16px 0; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .step-block:last-child { border-bottom: none; }
+    .step-circle { min-width: 28px; height: 28px; background: var(--gold); color: var(--charcoal); font-size: 11px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; flex-shrink: 0; }
+    .step-content { flex: 1; }
+    .step-title { font-size: 13.5px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
+    .step-body-text { font-size: 12.5px; color: var(--body-mid); line-height: 1.8; }
+    .step-bullets { list-style: none; padding: 0; margin: 8px 0 0; }
+    .step-bullets li { padding: 4px 0 4px 16px; position: relative; font-size: 12.5px; color: var(--body); border-bottom: 1px solid rgba(201,168,76,0.07); line-height: 1.7; }
+    .step-bullets li:last-child { border-bottom: none; }
+    .step-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--gold); font-weight: 600; }
+
+    .scripts { margin-bottom: 36px; }
+    .scripts-heading { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--body-mid); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .script-card { margin-bottom: 20px; border-radius: 6px; overflow: hidden; border: 1px solid var(--gold-border); }
+    .script-card-header { background: var(--charcoal); padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+    .script-icon { width: 24px; height: 24px; background: rgba(201,168,76,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+    .script-card-title { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+    .script-card-body { background: var(--cream-dark); border-left: 4px solid var(--gold); padding: 18px 22px; font-size: 12.5px; font-style: italic; color: var(--body); line-height: 1.9; white-space: pre-line; }
+
+    .callout { padding: 13px 18px; margin: 14px 0; font-size: 12.5px; line-height: 1.75; border-radius: 3px; }
+    .callout strong { display: inline; }
+    .callout-note { background: var(--white); border: 1px solid var(--gold-border); border-left: 4px solid var(--body-mid); }
+    .callout-note strong { color: var(--charcoal); }
+    .callout-compliance { background: #FFFBF0; border: 1px solid rgba(201,168,76,0.3); border-left: 4px solid var(--gold); }
+    .callout-compliance strong { color: #8B5E00; }
+    .callout-action { background: var(--white); border: 1px solid var(--gold-border); border-left: 4px solid var(--gold); }
+    .callout-action strong { color: var(--charcoal); }
+    .callout-pending { background: #FFFBF0; border: 1px solid rgba(201,168,76,0.3); border-left: 4px solid var(--gold-light); }
+    .callout-pending strong { color: #9A6B00; }
+    .callout-luxury { background: var(--charcoal); border: 1px solid var(--gold-border); border-left: 4px solid var(--gold); }
+    .callout-luxury strong { color: var(--gold); }
+    .callout-luxury, .callout-luxury p { color: rgba(255,255,255,0.75); font-size: 12.5px; }
+    .callout-handoff { background: var(--charcoal); border: 1px solid var(--gold-border); border-left: 4px solid var(--gold); }
+    .callout-handoff strong { color: var(--gold); }
+    .callout-handoff, .callout-handoff p { color: rgba(255,255,255,0.7); font-size: 12.5px; }
+
+    .section-divider { border: none; border-top: 1px solid var(--gold-border); margin: 36px 0; }
+
+    .site-footer { background: var(--charcoal); padding: 24px 48px; text-align: center; border-top: 2px solid var(--gold-border); font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .site-header, .hero, .main { padding-left: 20px; padding-right: 20px; }
+      .phase-map { padding: 0 20px; }
+      .flow-steps { flex-direction: column; align-items: flex-start; }
+      .hero h1 { font-size: 28px; }
+    }
+
+    /* ── CSS TAB SWITCHING ── */
+    .panel { display: none; }
+    #buyer-intro:checked ~ nav label[for="buyer-intro"] { color: var(--gold); border-bottom-color: var(--gold); }
+    #buyer-intro:checked ~ nav label[for="buyer-intro"] .tab-num, #buyer-intro:checked ~ nav label[for="buyer-intro"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-intro:checked ~ main #panel-intro { display: block !important; }
+    #buyer-p1:checked ~ nav label[for="buyer-p1"] { color: var(--gold); border-bottom-color: var(--gold); }
+    #buyer-p1:checked ~ nav label[for="buyer-p1"] .tab-num, #buyer-p1:checked ~ nav label[for="buyer-p1"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p1:checked ~ main #panel-p1 { display: block !important; }
+    #buyer-p2:checked ~ nav label[for="buyer-p2"] { color: var(--gold); border-bottom-color: var(--gold); }
+    #buyer-p2:checked ~ nav label[for="buyer-p2"] .tab-num, #buyer-p2:checked ~ nav label[for="buyer-p2"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p2:checked ~ main #panel-p2 { display: block !important; }
+    #buyer-p3:checked ~ nav label[for="buyer-p3"] { color: var(--gold); border-bottom-color: var(--gold); }
+    #buyer-p3:checked ~ nav label[for="buyer-p3"] .tab-num, #buyer-p3:checked ~ nav label[for="buyer-p3"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p3:checked ~ main #panel-p3 { display: block !important; }
+    #buyer-p4:checked ~ nav label[for="buyer-p4"] { color: var(--gold); border-bottom-color: var(--gold); }
+    #buyer-p4:checked ~ nav label[for="buyer-p4"] .tab-num, #buyer-p4:checked ~ nav label[for="buyer-p4"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p4:checked ~ main #panel-p4 { display: block !important; }
+    #buyer-p5:checked ~ nav label[for="buyer-p5"] { color: var(--gold); border-bottom-color: var(--gold); }
+    #buyer-p5:checked ~ nav label[for="buyer-p5"] .tab-num, #buyer-p5:checked ~ nav label[for="buyer-p5"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p5:checked ~ main #panel-p5 { display: block !important; }
+    #buyer-p6:checked ~ nav label[for="buyer-p6"] { color: var(--gold); border-bottom-color: var(--gold); }
+    #buyer-p6:checked ~ nav label[for="buyer-p6"] .tab-num, #buyer-p6:checked ~ nav label[for="buyer-p6"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p6:checked ~ main #panel-p6 { display: block !important; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <div class="header-brand">Dana Blanks Real Estate™</div>
+    <div class="header-sub">Buyer Journey · Advisor Field Guide</div>
+  </div>
+  <div class="header-badge">Internal Use Only</div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Dana Blanks Real Estate™ · Standard Operating Procedure</div>
+    <h1>Buyer Journey</h1>
+    <p class="hero-sub">Lead Through Under Contract — A complete field guide covering every phase of the buyer relationship: process steps, scripts, compliance reminders, and luxury service touchpoints.</p>
+    <hr class="gold-rule">
+    <span class="hero-promise">"Where Luxury Service Meets Genuine Connection"</span>
+  </div>
+</div>
+
+
+<input type="radio" name="buyer" id="buyer-intro" style="display:none" checked>
+<input type="radio" name="buyer" id="buyer-p1" style="display:none">
+<input type="radio" name="buyer" id="buyer-p2" style="display:none">
+<input type="radio" name="buyer" id="buyer-p3" style="display:none">
+<input type="radio" name="buyer" id="buyer-p4" style="display:none">
+<input type="radio" name="buyer" id="buyer-p5" style="display:none">
+<input type="radio" name="buyer" id="buyer-p6" style="display:none">
+<nav class="phase-map">
+  <label class="phase-tab" for="buyer-intro"><span class="phase-tab-num">✦</span> Overview</label>
+  <label class="phase-tab" for="buyer-p1"><span class="phase-tab-num">1</span> Lead</label>
+  <label class="phase-tab" for="buyer-p2"><span class="phase-tab-num">2</span> Consultation</label>
+  <label class="phase-tab" for="buyer-p3"><span class="phase-tab-num">3</span> Buyer Agency</label>
+  <label class="phase-tab" for="buyer-p4"><span class="phase-tab-num">4</span> Home Search</label>
+  <label class="phase-tab" for="buyer-p5"><span class="phase-tab-num">5</span> Showings</label>
+  <label class="phase-tab" for="buyer-p6"><span class="phase-tab-num">6</span> Offer &amp; Contract</label>
+</nav>
+
+<main class="main">
+
+  <!-- ═══════ OVERVIEW ═══════ -->
+  <div class="panel" id="panel-intro">
+    <div class="phase-intro">
+      <div class="phase-label">The DBRE Way</div>
+      <h2>This is not a checklist. It is a standard of service.</h2>
+      <p>Every buyer you represent is trusting you to guide one of the most significant financial decisions of their life. The DBRE standard means they should never feel lost, never wonder what is happening, and never need to turn to Zillow because you are already ahead of them. You are their source.</p>
+    </div>
+
+    <div class="flow-map">
+      <div class="flow-map-label">Full Buyer Journey at a Glance</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="flow-step-num">1</span><span>Lead</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">2</span><span>Consultation</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">3</span><span>Buyer Agency</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">4</span><span>Home Search</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">5</span><span>Showings</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-decision"><span class="flow-step-num">?</span><span>Home identified?</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">6</span><span>Offer &amp; Negotiate</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-milestone"><span class="flow-step-num">✓</span><span>Under Contract</span></div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="steps-heading">What Each Phase Covers</div>
+      <div class="step-block">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-title">Lead</div>
+          <div class="step-body-text">The first call — inbound or returned. Discovery. Collecting email. Sending the Buyer Information Sheet with HOME Buyer Guide. Following up until the form is returned.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-title">Buyer Consultation</div>
+          <div class="step-body-text">Scheduling the consultation. Sending the Buyer Consultation Guide with the day-before reminder. Conducting the session — including the Working with Real Estate Agents brochure and Buyer Consultation Presentation.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-title">Buyer Agency Agreement</div>
+          <div class="step-body-text">Executing the Exclusive Buyer Agency Agreement at the close of the consultation. Uploading to the boardroom.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">4</div>
+        <div class="step-content">
+          <div class="step-title">Home Search Setup</div>
+          <div class="step-body-text">Setting up the buyer's private MLS subscription in Hive MLS (Flexmls). Buyer opt-in required. Weekly check-in communication. Positioning advisor as the buyer's primary source.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">5</div>
+        <div class="step-content">
+          <div class="step-title">Showings</div>
+          <div class="step-body-text">Scheduling via Broker Bay. Calendar invite to buyer. Branded showing kit. Verbal feedback during showings. Same-day advisor follow-up.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">6</div>
+        <div class="step-content">
+          <div class="step-title">Offer &amp; Under Contract</div>
+          <div class="step-body-text">Pre-offer research. Call to walk through offer terms together. Preparing and submitting the offer package. Negotiation. Contract execution. TC handoff.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-action">
+      <strong>Where this guide ends —</strong> This SOP covers lead through under contract. Once the Transaction Initiation Form is submitted, the transaction continues under the <strong>DBRE Buyer-Side Transaction Workflow SOP</strong>, which covers inspection through post-closing.
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 1 ═══════ -->
+  <div class="panel" id="panel-p1">
+    <div class="phase-intro">
+      <div class="phase-label">Phase 1</div>
+      <h2>Lead</h2>
+      <p>Buyer leads come through the advisor's personal sphere, referrals from past clients, and occasionally through website inquiries or listing signage. However they arrive, the first interaction sets the tone for the entire relationship.</p>
+    </div>
+
+    <div class="flow-map">
+      <div class="flow-map-label">Phase 1 Flow</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="flow-step-num">1</span><span>Call comes in</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">2</span><span>Discovery</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">3</span><span>Collect email</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">4</span><span>Send form + guide</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-decision"><span class="flow-step-num">?</span><span>Form received?</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-milestone"><span class="flow-step-num">→</span><span>Phase 2</span></div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="steps-heading">Steps</div>
+      <div class="step-block">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-title">The First Call</div>
+          <div class="step-body-text">Whether inbound or a return call, open warmly and make the buyer feel immediately welcome. Note: agency disclosure is handled at first substantial contact — for buyers, this typically happens at the beginning of the consultation rather than on the first call, since the call is often brief and exploratory.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-title">Discovery</div>
+          <div class="step-body-text">Get a sense of where they are in the process — are they just starting out, actively searching, or ready to move quickly? Understand their general search area, timeline, and motivation.</div>
+          <div class="callout callout-note" style="margin-top:10px;"><strong>Note:</strong> Listen more than you talk. What you learn here shapes the consultation, the search criteria, and how you position DBRE's value. This is where genuine connection begins.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-title">Collect Email and Introduce the Next Step</div>
+          <ul class="step-bullets">
+            <li>If the buyer called in: ask for their email directly</li>
+            <li>If returning their call and they are driving: ask them to text their email when they get a chance</li>
+            <li>If you are driving when returning a call: pull over or wait before collecting information</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">4</div>
+        <div class="step-content">
+          <div class="step-title">Send the Buyer Information Sheet</div>
+          <div class="step-body-text">Send within the same business day — ideally within the hour. Your email should include:</div>
+          <ul class="step-bullets">
+            <li>A warm thank-you for reaching out</li>
+            <li>A link to the Online Buyer Information Sheet</li>
+            <li>The HOME Buyer Guide as an attachment</li>
+            <li>A clear statement that upon receipt you will be in touch to schedule the consultation</li>
+          </ul>
+          <div class="callout callout-note" style="margin-top:10px;"><strong>Note:</strong> Keep this email focused — one clear action for the buyer. The Buyer Consultation Guide is sent with the day-before reminder, when it will actually be read.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="scripts">
+      <div class="scripts-heading">Scripts &amp; Email Templates</div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">📞</div><div class="script-card-title">Inbound Call</div></div>
+        <div class="script-card-body">"Hi, this is [your name] with Dana Blanks Real Estate — I'm so glad you reached out. How can I help you today?"
+
+"Thank you so much for thinking of us — we truly appreciate it."</div>
+      </div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">📲</div><div class="script-card-title">Returning a Call</div></div>
+        <div class="script-card-body">"Hi [name], this is [your name] with Dana Blanks Real Estate — I'm returning your call. Is now a good time to talk?"
+
+[If yes:] "Wonderful. Thank you so much for reaching out — we truly appreciate you thinking of us."
+
+[If not a good time:] "No problem at all — when would be a better time for me to call you back?"</div>
+      </div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">🎯</div><div class="script-card-title">Discovery</div></div>
+        <div class="script-card-body">"I'd love to hear a little more about what you're looking for. Are you just getting started with your search, or do you have a sense of what you're after? And what's your timeline looking like?"</div>
+      </div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">💡</div><div class="script-card-title">Introduce Next Step &amp; Collect Email</div></div>
+        <div class="script-card-body">"The best next step is for us to sit down together for a Buyer Consultation — I can walk you through the entire process, get clear on exactly what you're looking for, and make sure you have everything you need to move confidently when the right home comes along."
+
+"Before we do that, I'd love to send you our Buyer Information Sheet — it helps me prepare so our time together is completely focused on you. What's the best email address to reach you?"</div>
+      </div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">✉️</div><div class="script-card-title">Email — Buyer Information Sheet Send</div></div>
+        <div class="script-card-body">Subject: Your Home Search Starts Here — Buyer Information Sheet Enclosed
+
+"Thank you again for reaching out — it was a pleasure connecting with you, and I'm looking forward to learning more about what you're searching for."
+
+"Please complete our Buyer Information Sheet using the link below — this helps me prepare a consultation that is truly tailored to your goals."
+
+[Insert Buyer Information Sheet link]
+
+"I've also attached our HOME Buyer Guide, which gives you an overview of what to expect throughout the home buying process."
+
+"Once I receive your completed form, I'll be in touch promptly to schedule your Buyer Consultation. Please don't hesitate to reach out with any questions in the meantime."
+
+"We look forward to the opportunity to serve you."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 2 ═══════ -->
+  <div class="panel" id="panel-p2">
+    <div class="phase-intro">
+      <div class="phase-label">Phase 2</div>
+      <h2>Buyer Consultation</h2>
+      <p>The consultation is where the relationship is established and the foundation for the entire search is set. Come prepared, lead with expertise, and leave knowing exactly what this buyer needs — and that they feel completely taken care of.</p>
+    </div>
+
+    <div class="flow-map">
+      <div class="flow-map-label">Phase 2 Flow</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="flow-step-num">1</span><span>Schedule consultation</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">2</span><span>Send invite</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">3</span><span>Day-before reminder + guide</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">4</span><span>Conduct consultation</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-milestone"><span class="flow-step-num">→</span><span>Phase 3</span></div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="steps-heading">Steps</div>
+      <div class="step-block">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-title">Schedule the Consultation</div>
+          <div class="step-body-text">Upon receipt of the Buyer Information Sheet, reach out promptly. Review the completed form before reaching out — reference it to show you read it. Format is at your discretion — virtual or in-person.</div>
+          <div class="callout callout-action" style="margin-top:10px;"><strong>Key Action:</strong> Send the Buyer Consultation Confirmation email (Message Center) immediately upon booking.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-title">Send Calendar Invite</div>
+          <ul class="step-bullets">
+            <li>Include date, time, format (virtual link or address), and a brief agenda</li>
+            <li>Confirm what to expect: a walkthrough of the buying process, getting clear on their goals, and next steps</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-title">Day-Before Reminder — Attach Buyer Consultation Guide</div>
+          <ul class="step-bullets">
+            <li>Send a warm, brief reminder confirming the time and expressing that you are looking forward to it</li>
+            <li>Attach the Buyer Consultation Guide — ask them to review it before the session</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">4</div>
+        <div class="step-content">
+          <div class="step-title">Conduct the Buyer Consultation</div>
+          <div class="step-body-text">Open with the Working with Real Estate Agents brochure — NC requires agency disclosure at first substantial contact. Then move into your Buyer Consultation Presentation.</div>
+          <div class="callout callout-compliance" style="margin-top:10px;"><strong>Compliance:</strong> Review the Working with Real Estate Agents brochure at the beginning of the consultation before discussing property specifics, search criteria, or financial details.</div>
+          <ul class="step-bullets" style="margin-top:10px;">
+            <li>Walk through the Buyer Consultation Presentation — explain the buying process, DBRE's role, and what to expect at each stage</li>
+            <li>Deep-dive into their search criteria: location, price, style, must-haves, and deal-breakers</li>
+            <li>Discuss financing — confirm pre-approval status or refer to a trusted lender if needed</li>
+            <li>Explain your communication style and how you will keep them informed throughout the search</li>
+            <li>Listen carefully — understand not just what they want in a home, but why</li>
+          </ul>
+          <div class="callout callout-note" style="margin-top:10px;"><strong>Note:</strong> The consultation is where genuine connection is built. The buyer should leave feeling that you understand them — not just their search criteria, but their life, their timeline, and what this move means to them.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="scripts">
+      <div class="scripts-heading">Scripts &amp; Email Templates</div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">📅</div><div class="script-card-title">Schedule Consultation — Call</div></div>
+        <div class="script-card-body">"Would [day] afternoon or [day] morning work better for us to meet?"</div>
+      </div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">✉️</div><div class="script-card-title">Email — Schedule Buyer Consultation</div></div>
+        <div class="script-card-body">Subject: Your Buyer Consultation — Let's Find a Time That Works
+
+"Thank you for completing the Buyer Information Sheet — I've reviewed it and I'm already looking forward to our conversation."
+
+"I'd love to schedule a time for us to connect for your Buyer Consultation. Please let me know your availability over the next few days and I'll confirm a time that works for you."</div>
+      </div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">🔔</div><div class="script-card-title">Day-Before Reminder — With Buyer Consultation Guide</div></div>
+        <div class="script-card-body">Subject: See You Tomorrow — Your Buyer Consultation Guide Attached
+
+"Just a quick note to confirm our Buyer Consultation tomorrow at [time]. I'm looking forward to connecting with you."
+
+"I've attached our Buyer Consultation Guide — a brief read before we meet will help us make the most of our time together."
+
+"See you tomorrow."</div>
+      </div>
+
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">⚖️</div><div class="script-card-title">Agency Disclosure — Opening the Consultation</div></div>
+        <div class="script-card-body">"Before we dive in, the state of North Carolina requires that I review agency with you — it'll only take a minute."
+
+"I have a brochure here called Working with Real Estate Agents — it explains the different types of agency relationships and how I'll be representing you throughout this process. Have you had a chance to review this with anyone before?"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 3 ═══════ -->
+  <div class="panel" id="panel-p3">
+    <div class="phase-intro">
+      <div class="phase-label">Phase 3</div>
+      <h2>Buyer Agency Agreement</h2>
+      <p>Once the consultation is complete and the buyer is ready to move forward, execute the Exclusive Buyer Agency Agreement. This formalizes the relationship, establishes your representation, and sets the foundation for everything that follows.</p>
+    </div>
+
+    <div class="flow-map">
+      <div class="flow-map-label">Phase 3 Flow</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="flow-step-num">1</span><span>Communicate next steps</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">2</span><span>Execute agreement</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">3</span><span>Upload to boardroom</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">4</span><span>Add to Contact Import</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-milestone"><span class="flow-step-num">→</span><span>Phase 4</span></div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="steps-heading">Steps</div>
+      <div class="step-block">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-title">Communicate Next Steps at Close of Consultation</div>
+          <ul class="step-bullets">
+            <li>If the buyer is ready to sign at the meeting: walk through the agreement together before signing</li>
+            <li>If sending electronically: commit to sending the next day — and honor it</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-title">Execute the Exclusive Buyer Agency Agreement</div>
+          <ul class="step-bullets">
+            <li>Review all key terms with the buyer: representation period, compensation, and obligations</li>
+            <li>Execute via electronic signature</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-title">Upload and Log</div>
+          <ul class="step-bullets">
+            <li>Upload the executed agreement to your boardroom</li>
+            <li>Add the buyer's contact information to your Contact Import Spreadsheet</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="scripts">
+      <div class="scripts-heading">Scripts</div>
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">🤝</div><div class="script-card-title">Close of Consultation — Next Steps Language</div></div>
+        <div class="script-card-body">"Based on our conversation today, I'm confident I can help you find exactly what you're looking for. Here's what happens next:"
+
+[If signing today:] "I have the Buyer Agency Agreement here — let's take a few minutes to walk through it together so you feel completely comfortable before signing."
+
+[If sending tomorrow:] "I'll prepare the Buyer Agency Agreement and send it to you for electronic signature tomorrow. Once that's in place, I'll get your search set up and we can hit the ground running."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 4 ═══════ -->
+  <div class="panel" id="panel-p4">
+    <div class="phase-intro">
+      <div class="phase-label">Phase 4</div>
+      <h2>Home Search Setup</h2>
+      <p>Once the Buyer Agency Agreement is signed, you become the buyer's primary source for properties. Set up their private MLS subscription immediately — and position it that way. A buyer who looks to you first stops needing Zillow.</p>
+    </div>
+
+    <div class="flow-map">
+      <div class="flow-map-label">Phase 4 Flow</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="flow-step-num">1</span><span>Set up MLS subscription</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">2</span><span>Buyer opt-in required</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">3</span><span>Confirm receipt + set expectations</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">4</span><span>Weekly active search check-in</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-decision"><span class="flow-step-num">?</span><span>Property identified?</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-milestone"><span class="flow-step-num">→</span><span>Phase 5</span></div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="steps-heading">Steps</div>
+      <div class="step-block">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-title">Set Up Private MLS Subscription in Hive MLS (Flexmls)</div>
+          <ul class="step-bullets">
+            <li>Navigate to Quick Search on the main dashboard</li>
+            <li>Enter the buyer's specific criteria based on what you learned in the consultation: location, price, bedrooms, structural preferences</li>
+            <li>Click Save → Save Search in the upper-right corner</li>
+            <li>Name the search clearly (e.g., [Buyer Name]'s Home Search)</li>
+            <li>Link to the buyer's contact profile — existing or create new</li>
+            <li>Click Save and Add Subscription</li>
+            <li>Set notification frequency: ASAP is recommended for active buyers in competitive markets</li>
+          </ul>
+          <div class="callout callout-compliance" style="margin-top:10px;"><strong>Required — Buyer Opt-In:</strong> Hive MLS enforces a strict opt-in privacy policy for all new contacts. The system will automatically send a verification link to the buyer's email. The buyer must click this link to authorize property update emails. Follow up to confirm they received and clicked the opt-in link before assuming the subscription is active.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-title">Frame the Search as a Private Service</div>
+          <div class="step-body-text">Do not just send the opt-in link without context. Call or email the buyer to walk them through what to expect. The way you position the subscription determines whether they think of it — and of you — as their primary source.</div>
+          <div class="callout callout-luxury" style="margin-top:10px;"><strong>Luxury Service Standard —</strong> "I've set up a private search portal for you. The moment a property that matches what we discussed comes to market, you'll be among the first to know — before most buyers even see it. No scrolling through sites that show outdated information. I've got that covered for you. When something catches your eye, come to me first and I'll dig into the details."</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-title">Confirm Opt-In and Set Communication Expectations</div>
+          <ul class="step-bullets">
+            <li>Follow up to confirm the buyer received and clicked the verification link</li>
+            <li>Let them know what to do when something interests them: contact you directly rather than scheduling a showing through a third-party site</li>
+            <li>Set the expectation that you will be in regular contact throughout the active search</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">4</div>
+        <div class="step-content">
+          <div class="step-title">Weekly Active Search Check-In</div>
+          <div class="step-body-text">While the buyer is in active search mode, stay proactively in front of them. Do not wait for them to reach out.</div>
+          <ul class="step-bullets">
+            <li>Send a brief weekly check-in — share your thoughts on what has come to market, what's moved under contract, and anything relevant to their search</li>
+            <li>This keeps you top of mind and positions you as the expert, not just a portal they log into</li>
+            <li>If nothing new has come to market that week: say so, and tell them what you're watching</li>
+          </ul>
+          <div class="callout callout-note" style="margin-top:10px;"><strong>Note:</strong> A buyer who hears from you regularly stops needing to check Zillow. Proactive communication is the single most effective way to remain their primary source throughout the search.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 5 ═══════ -->
+  <div class="panel" id="panel-p5">
+    <div class="phase-intro">
+      <div class="phase-label">Phase 5</div>
+      <h2>Showings</h2>
+      <p>Showings are not just property tours — they are a service experience. Every detail communicates care and professionalism. Arrive prepared, bring your showing kit, and be present for every property you walk together.</p>
+    </div>
+
+    <div class="flow-map">
+      <div class="flow-map-label">Phase 5 Flow</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="flow-step-num">1</span><span>Buyer flags property</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">2</span><span>Schedule via Broker Bay</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">3</span><span>Send buyer invite</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">4</span><span>Conduct showing</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">5</span><span>Collect feedback</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">6</span><span>Same-day follow-up</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-decision"><span class="flow-step-num">?</span><span>Home identified?</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-milestone"><span class="flow-step-num">→</span><span>Phase 6</span></div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="steps-heading">Steps</div>
+      <div class="step-block">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-title">Buyer Identifies a Property</div>
+          <div class="step-body-text">When a buyer flags a property from their MLS subscription or otherwise, respond promptly. This is the moment your availability and responsiveness communicate your standard of service.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-title">Schedule Showing via Broker Bay</div>
+          <ul class="step-bullets">
+            <li>Contact the listing agent through Broker Bay to request a showing appointment</li>
+            <li>Confirm date, time, and any access instructions</li>
+            <li>Schedule multiple properties in a single outing when practical — respect the buyer's time</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-title">Send Showing Invite to Buyer</div>
+          <ul class="step-bullets">
+            <li>Send a calendar invite confirming the date, time, and address of each property</li>
+            <li>Include any access notes or instructions for the buyer</li>
+            <li>Remind them to bring questions — you'll be there to walk through each property with them</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">4</div>
+        <div class="step-content">
+          <div class="step-title">Conduct the Showing — Branded Showing Kit</div>
+          <div class="step-body-text">Arrive before the buyer when possible. Present the branded showing kit at the first showing — this is theirs to keep throughout the search.</div>
+          <div class="callout callout-luxury" style="margin-top:10px;"><strong>Luxury Service Touchpoint —</strong> The DBRE branded showing kit includes a notepad, pen, and bottled water for each buyer. It is presented at the first showing as part of how DBRE does business. A buyer who has their own notepad takes better notes, gives better feedback, and remembers the experience differently than one who doesn't. Small details communicate that you thought about them before they arrived.</div>
+          <ul class="step-bullets" style="margin-top:10px;">
+            <li>Walk through each property thoughtfully — point out features that align with their stated priorities</li>
+            <li>Share your honest professional observations — positive and constructive</li>
+            <li>Let the buyer explore and react; don't oversell</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">5</div>
+        <div class="step-content">
+          <div class="step-title">Collect Feedback Verbally During the Showing</div>
+          <div class="step-body-text">Gather the buyer's impressions while you are still in the property — reactions are most honest and detailed in the moment.</div>
+          <ul class="step-bullets">
+            <li>Ask directly: "What did you think? What stood out — positively and negatively?"</li>
+            <li>Note their responses — these calibrate the search going forward</li>
+            <li>If a property is clearly not a fit: acknowledge it, understand why, and use it to sharpen the criteria</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">6</div>
+        <div class="step-content">
+          <div class="step-title">Same-Day Advisor Follow-Up</div>
+          <div class="step-body-text">After showings, send a brief same-day text or email sharing your thoughts on what you toured — not a form, not a survey. A personal note.</div>
+          <div class="callout callout-luxury" style="margin-top:10px;"><strong>Luxury Service Standard —</strong> "Here are my thoughts on the three we saw today..." — a short, personal message that shows you were paying attention and are thinking on their behalf. Most advisors say nothing until the buyer calls. You don't wait.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 6 ═══════ -->
+  <div class="panel" id="panel-p6">
+    <div class="phase-intro">
+      <div class="phase-label">Phase 6</div>
+      <h2>Offer &amp; Under Contract</h2>
+      <p>Once the buyer has identified a property, move with precision and care. Pre-offer research protects them. A guided offer conversation prepares them. Thorough execution sets up a clean transaction.</p>
+    </div>
+
+    <div class="flow-map">
+      <div class="flow-map-label">Phase 6 Flow</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="flow-step-num">1</span><span>Pre-offer research</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">2</span><span>Call to walk through offer</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">3</span><span>Prepare + send offer package</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">4</span><span>Submit to listing agent</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-decision"><span class="flow-step-num">?</span><span>Accepted or counter?</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="flow-step-num">5</span><span>Negotiate + execute</span></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step flow-milestone"><span class="flow-step-num">✓</span><span>Under Contract</span></div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="steps-heading">Steps</div>
+      <div class="step-block">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-title">Pre-Offer Research</div>
+          <div class="step-body-text">Before preparing the offer, complete your due diligence on the property. This protects the buyer and informs your offer strategy.</div>
+          <ul class="step-bullets">
+            <li>Contact the listing agent to request Cooperating Compensation (Form 220)</li>
+            <li>Research comparable properties to verify the asking price is in line with the market</li>
+            <li>Check tax records to verify ownership</li>
+            <li>Download the Residential Property Disclosure (RPD) and Mineral Oil and Gas Disclosure (MOG) from the MLS</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-title">Call the Buyer — Walk Through the Offer Together</div>
+          <div class="step-body-text">Before drafting anything, get on a call or meet with the buyer to align on all terms. This is not just a courtesy — it prevents revisions and ensures the buyer is fully informed before signing.</div>
+          <ul class="step-bullets">
+            <li>Discuss and agree on: offer price, due diligence fee and period, earnest money, closing date, and any additional terms or contingencies</li>
+            <li>Share your professional recommendation on offer price based on your comp research</li>
+            <li>Explain due diligence and earnest money clearly — do not assume the buyer understands these</li>
+          </ul>
+          <div class="callout callout-luxury" style="margin-top:10px;"><strong>Luxury Service Standard —</strong> "I've put together the offer based on everything we discussed — I want to walk you through it together before we send anything. Do you have 15 minutes today?" This is not optional. Buyers who are walked through their offer make better decisions and feel genuinely taken care of.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-title">Prepare the Offer Package</div>
+          <ul class="step-bullets">
+            <li>Prepare the purchase offer reflecting the agreed-upon terms</li>
+            <li>Send to the buyer for signatures along with the RPD, MOG, and Form 220</li>
+            <li>Walk the buyer through each document before requesting signatures — do not just send for blind signing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">4</div>
+        <div class="step-content">
+          <div class="step-title">Submit to Listing Agent</div>
+          <ul class="step-bullets">
+            <li>Send the signed offer, RPD, MOG, and executed Cooperating Compensation Form 220 to the listing agent</li>
+            <li>Confirm receipt with the listing agent</li>
+            <li>Upload the MLS sheet and all submitted documents to your boardroom</li>
+            <li>Let the buyer know the offer has been submitted and set timeline expectations for a response</li>
+          </ul>
+          <div class="callout callout-luxury" style="margin-top:10px;"><strong>Luxury Service Standard —</strong> After submitting, send the buyer a brief message: "Your offer has been submitted. Here's what happens next and when we should expect to hear back." Buyers are anxious in this window. You eliminate that anxiety by being proactive.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">5</div>
+        <div class="step-content">
+          <div class="step-title">Negotiate</div>
+          <ul class="step-bullets">
+            <li>Negotiate offer price and terms with the listing agent on the buyer's behalf</li>
+            <li>Keep the buyer informed at every step — they should never feel they are waiting in the dark</li>
+            <li>Once a deal is reached: revise the contract to accurately reflect all negotiated terms</li>
+          </ul>
+          <div class="callout callout-action" style="margin-top:10px;"><strong>Multiple Offer Situation?</strong> Refer to the <strong>DBRE Multiple Offer Protocol</strong> for the full buyer-side process — including how to advise on strategy, when to use an escalation clause, and how to keep your buyer calm and competitive throughout.</div>
+        </div>
+      </div>
+      <div class="step-block">
+        <div class="step-circle">6</div>
+        <div class="step-content">
+          <div class="step-title">Execute the Contract and Hand Off</div>
+          <ul class="step-bullets">
+            <li>Obtain all buyer signatures on the final executed contract</li>
+            <li>Ensure the listing agent has the fully executed contract</li>
+            <li>Upload all executed documents to your boardroom</li>
+            <li>Complete the Transaction Initiation Form — this is the official TC handoff</li>
+            <li>Forward all documents to the Transaction Coordinator</li>
+          </ul>
+          <div class="callout callout-luxury" style="margin-top:10px;"><strong>Luxury Service Standard —</strong> Mark the moment. A brief congratulatory call or handwritten note acknowledging that the buyer is under contract goes a long way. This milestone deserves recognition — not just a document for signature.</div>
+          <div class="callout callout-handoff" style="margin-top:12px;">
+            <strong>Continuing from here —</strong> Once the Transaction Initiation Form is submitted, the transaction moves to the <strong>DBRE Buyer-Side Transaction Workflow SOP</strong> — inspection through post-closing.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="scripts">
+      <div class="scripts-heading">Scripts</div>
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">📋</div><div class="script-card-title">Pre-Offer Call — Walk Through Terms Together</div></div>
+        <div class="script-card-body">"I've put together the offer based on everything we discussed — I want to walk you through it together before we send anything. Do you have 15 minutes today?"
+
+"I've done the research on comparable properties and I want to share my recommendation on price. Then we'll go through the terms — due diligence, earnest money, closing date — so you feel completely confident before we submit."</div>
+      </div>
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">📨</div><div class="script-card-title">After Offer Submission — Buyer Update</div></div>
+        <div class="script-card-body">"Your offer has been submitted. [Listing agent name] confirmed receipt. Based on what I know, here's what to expect: [timeline]. I'll be in touch the moment I hear anything — you won't be left wondering."</div>
+      </div>
+      <div class="script-card">
+        <div class="script-card-header"><div class="script-icon">🎉</div><div class="script-card-title">Under Contract — Congratulations</div></div>
+        <div class="script-card-body">"Congratulations — you're under contract. This is a big moment and you should feel great about how we got here."
+
+"Here's what happens next: [brief overview of inspection period, due diligence, closing timeline]. I'll be with you every step of the way, and our transaction coordinator will be reaching out shortly to walk you through the details."
+
+"I'm so glad I could be a part of this."</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  Dana Blanks Real Estate™ &nbsp;·&nbsp; Buyer Journey — Advisor Field Guide &nbsp;·&nbsp; Confidential · Internal Use Only<br>
+  © 2026 Dana Blanks Real Estate™. All Rights Reserved.
+</footer>
+</body>
+</html>
