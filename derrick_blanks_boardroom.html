@@ -215,6 +215,59 @@
   }
   .footer-brand { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 500; color: var(--gold-warm); letter-spacing: 0.06em; }
   .footer-channel { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+
+  .portal-personal {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.03) 100%);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .portal-personal-left { flex: 1; min-width: 200px; }
+  .portal-personal-eyebrow {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-warm);
+    margin-bottom: 6px;
+  }
+  .portal-personal-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .portal-personal-url {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+    word-break: break-all;
+  }
+  .portal-personal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-warm);
+    color: #1A1A1A;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .portal-personal-btn:hover { background: var(--gold-light); }
 </style>
 </head>
 <body>
@@ -326,6 +379,52 @@
       <span class="quick-tag">Directory</span>
       <span class="quick-name">Preferred Partners</span>
       <span class="quick-desc">Vetted vendors across every category — closing attorneys, lenders, inspectors, contractors, stagers, and more.</span>
+      <span class="quick-arrow">Open</span>
+    </a>
+  </div>
+
+
+  <div class="section-header">
+    <span class="section-label">Client Portal</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- Personal Link Card -->
+  <div class="portal-personal">
+    <div class="portal-personal-left">
+      <div class="portal-personal-eyebrow">Your Personal Link</div>
+      <div class="portal-personal-label">Derrick's Client Portal Link</div>
+      <div class="portal-personal-url">portal.danablanksrealestate.com/#connect-derrick</div>
+    </div>
+    <a class="portal-personal-btn" href="https://portal.danablanksrealestate.com/#connect-derrick" target="_blank">
+      Open My Link ↗
+    </a>
+  </div>
+
+  <!-- Portal Tool Cards -->
+  <div class="quick-links">
+    <a class="quick-card" href="https://portal.danablanksrealestate.com" target="_blank">
+      <span class="quick-tag">Portal</span>
+      <span class="quick-name">Full Client Portal</span>
+      <span class="quick-desc">Share with every new client — buyers, sellers, investors. Your white-glove onboarding experience. Private use only.</span>
+      <span class="quick-arrow">Open</span>
+    </a>
+    <a class="quick-card" href="https://portal.danablanksrealestate.com/#quiz" target="_blank">
+      <span class="quick-tag">Social</span>
+      <span class="quick-name">Buyer Readiness Quiz</span>
+      <span class="quick-desc">Share on buyer-focused social content. Qualifies leads and routes them to you. Safe to share publicly.</span>
+      <span class="quick-arrow">Open</span>
+    </a>
+    <a class="quick-card" href="https://portal.danablanksrealestate.com/#sellerquiz" target="_blank">
+      <span class="quick-tag">Social</span>
+      <span class="quick-name">Seller Readiness Quiz</span>
+      <span class="quick-desc">Share on seller-focused social content. Captures motivated sellers and routes them to you. Safe to share publicly.</span>
+      <span class="quick-arrow">Open</span>
+    </a>
+    <a class="quick-card" href="https://portal.danablanksrealestate.com/#connect-derrick" target="_blank">
+      <span class="quick-tag">Your Link</span>
+      <span class="quick-name">Your Personal Connect Link</span>
+      <span class="quick-desc">Add to your email signature, social bio, and direct prospect outreach. Opens the portal with your name pre-selected.</span>
       <span class="quick-arrow">Open</span>
     </a>
   </div>
