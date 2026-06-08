@@ -328,26 +328,26 @@
       .hero h1 { font-size: 28px; }
     }
 
-    /* ── CSS TAB SWITCHING ── */
+    /* tab visibility */
     .panel { display: none; }
     #seller-intro:checked ~ nav label[for="seller-intro"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #seller-intro:checked ~ nav label[for="seller-intro"] .tab-num, #seller-intro:checked ~ nav label[for="seller-intro"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #seller-intro:checked ~ main #panel-intro { display: block !important; }
+    #seller-intro:checked ~ nav label[for="seller-intro"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #seller-intro:checked ~ main #panel-intro { display: block; }
     #seller-p1:checked ~ nav label[for="seller-p1"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #seller-p1:checked ~ nav label[for="seller-p1"] .tab-num, #seller-p1:checked ~ nav label[for="seller-p1"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #seller-p1:checked ~ main #panel-p1 { display: block !important; }
+    #seller-p1:checked ~ nav label[for="seller-p1"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #seller-p1:checked ~ main #panel-p1 { display: block; }
     #seller-p2:checked ~ nav label[for="seller-p2"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #seller-p2:checked ~ nav label[for="seller-p2"] .tab-num, #seller-p2:checked ~ nav label[for="seller-p2"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #seller-p2:checked ~ main #panel-p2 { display: block !important; }
+    #seller-p2:checked ~ nav label[for="seller-p2"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #seller-p2:checked ~ main #panel-p2 { display: block; }
     #seller-p3:checked ~ nav label[for="seller-p3"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #seller-p3:checked ~ nav label[for="seller-p3"] .tab-num, #seller-p3:checked ~ nav label[for="seller-p3"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #seller-p3:checked ~ main #panel-p3 { display: block !important; }
+    #seller-p3:checked ~ nav label[for="seller-p3"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #seller-p3:checked ~ main #panel-p3 { display: block; }
     #seller-p4:checked ~ nav label[for="seller-p4"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #seller-p4:checked ~ nav label[for="seller-p4"] .tab-num, #seller-p4:checked ~ nav label[for="seller-p4"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #seller-p4:checked ~ main #panel-p4 { display: block !important; }
+    #seller-p4:checked ~ nav label[for="seller-p4"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #seller-p4:checked ~ main #panel-p4 { display: block; }
     #seller-p5:checked ~ nav label[for="seller-p5"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #seller-p5:checked ~ nav label[for="seller-p5"] .tab-num, #seller-p5:checked ~ nav label[for="seller-p5"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #seller-p5:checked ~ main #panel-p5 { display: block !important; }
+    #seller-p5:checked ~ nav label[for="seller-p5"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #seller-p5:checked ~ main #panel-p5 { display: block; }
   </style>
 </head>
 <body>
@@ -373,7 +373,6 @@
 </div>
 
 <!-- Phase Navigation -->
-
 <input type="radio" name="seller" id="seller-intro" style="display:none" checked>
 <input type="radio" name="seller" id="seller-p1" style="display:none">
 <input type="radio" name="seller" id="seller-p2" style="display:none">
@@ -425,7 +424,7 @@
         <div class="step-circle">1</div>
         <div class="step-content">
           <div class="step-title">Lead</div>
-          <div class="step-body-text">The first call — inbound or returned. Agency disclosure. Discovery. Collecting the email. Sending the Seller Information Form with SOLD Seller Guide attached.</div>
+          <div class="step-body-text">The first call — inbound or returned. Agency disclosure. Discovery. Collecting the email. Sending the Post-Call Email with portal link, Seller Readiness assessment callout, SOLD Seller Guide attached, and Seller Information Form link.</div>
         </div>
       </div>
 
@@ -537,16 +536,16 @@
       <div class="step-block">
         <div class="step-circle">5</div>
         <div class="step-content">
-          <div class="step-title">Send the Seller Information Form</div>
-          <div class="step-body-text">Before sending the Seller Information Form, send the client portal link. Then send the form email within the same business day — ideally within the hour. Your email should include:</div>
+          <div class="step-title">Send the Post-Call Email</div>
+          <div class="step-body-text">Send within the same business day — ideally within the hour. One email, everything the seller needs before your next interaction:</div>
           <ul class="step-bullets">
             <li>A warm thank-you for reaching out</li>
-            <li>A link to the Online Seller Information Form</li>
+            <li>The DBRE Client Portal link with a callout to the Seller Readiness assessment</li>
             <li>The SOLD Seller Guide as an attachment</li>
-            <li>A clear statement that upon receipt you will be in touch to schedule the Strategy Session</li>
+            <li>The Seller Information Form link as the one clear call to action</li>
+            <li>A statement that upon receipt you will be in touch to schedule the Strategy Session</li>
           </ul>
-          <div class="callout callout-note" style="margin-top:10px;"><strong>Note:</strong> Keep this email focused — one clear action for the seller. The Seller Consultation Guide is sent separately with the Strategy Session confirmation, when the relationship has momentum.</div>
-<div class="callout callout-action" style="margin-top:10px;"><strong>Client Portal:</strong> Send the DBRE Client Portal link (<strong>portal.danablanksrealestate.com</strong>) before or with the first email: <em>"Here is our client resource portal — I'd encourage you to explore the Seller Readiness assessment before our consultation. It will help frame our conversation."</em> The full portal remains active throughout the relationship as their resource hub.</div>
+          <div class="callout callout-note" style="margin-top:10px;"><strong>Note:</strong> One email, one action. The portal and guide provide value; the form is what moves things forward. The Seller Consultation Guide is sent with the Strategy Session confirmation email, when the appointment is confirmed and the guide will actually be read.</div>
         </div>
       </div>
     </div>
@@ -611,23 +610,25 @@
       <div class="script-card">
         <div class="script-card-header">
           <div class="script-icon">✉️</div>
-          <div class="script-card-title">Email — Seller Information Form Send</div>
+          <div class="script-card-title">Email — Post-Call Email (Seller)</div>
         </div>
-        <div class="script-card-body">Subject: Your Next Chapter Starts Here — Seller Information Form Enclosed
+        <div class="script-card-body">Subject: Your Next Chapter Starts Here | Dana Blanks Real Estate™
 
-"Thank you again for reaching out to discuss your plans for putting your [home/land] on the market. It was a pleasure connecting with you, and I'm looking forward to learning more about your property and goals."
+"Thank you again for reaching out — it was truly a pleasure connecting with you. I'm looking forward to learning more about your property and goals, and I want to make sure you have everything you need before we meet."
 
-"I've also shared a link to our client resource portal — portal.danablanksrealestate.com — where you'll find our Seller Readiness assessment. I'd encourage you to take a few minutes to explore it before our consultation. It will help frame our conversation."
+"I've put together a few resources just for you:"
 
-"Please complete our Online Seller Information Form using the link below — this helps me prepare a thorough analysis and a Strategy Session that is truly tailored to you."
+"DBRE Client Portal — portal.danablanksrealestate.com
+Your dedicated client resource hub — mortgage calculator, seller net sheet, community guides, and more. I'd especially encourage you to complete the Seller Readiness assessment before we meet. It will help frame our conversation and make sure our time together is completely focused on you."
 
-[Insert Seller Information Form link]
+"SOLD Seller Guide — attached
+A brief overview of what to expect throughout the selling process — from preparing your home to closing day."
 
-"I've also attached our SOLD Seller Guide, which gives you an overview of what to expect throughout the selling process."
+"Please complete the Seller Information Form using the link below — this helps me prepare a Strategy Session that is truly tailored to your property and goals. Once I receive it, I'll be in touch promptly to confirm our appointment."
 
-"Once I receive your completed form, I'll be in touch promptly to schedule our Strategy Session and, if applicable, a walkthrough of the property. Please don't hesitate to reach out with any questions in the meantime."
+"Complete the Seller Information Form: [Seller Information Form Link]"
 
-"We look forward to the opportunity to serve you."</div>
+"Or simply reply to this email — I'm here."</div>
       </div>
     </div>
   </div>
@@ -667,7 +668,7 @@
             <li>Confirm whether virtual or in-person at the property</li>
             <li>Confirm objectives: goals, timeline, property condition</li>
           </ul>
-          <div class="callout callout-action" style="margin-top:10px;"><strong>Key Action:</strong> Send the Strategy Session Confirmation email (Message Center › 01 The Listing Journey › 01 The Discovery Phase) immediately upon booking. Attach the Seller Consultation Guide to this email — it gives the seller context on the process, pricing, and what to expect before you meet.</div>
+          <div class="callout callout-action" style="margin-top:10px;"><strong>Key Action:</strong> Send the Consultation Confirmation email (Message Center) immediately upon booking. Attach the Seller Consultation Guide to this email — the appointment is confirmed, the seller is engaged, and this is when the guide will actually be read.</div>
         </div>
       </div>
 
@@ -734,9 +735,7 @@
 
 "Thank you for completing the Seller Information Form — I've reviewed it and I'm already thinking through the best approach for your property."
 
-"I'd love to schedule a time for us to connect for a Strategy Session [and walkthrough of the home]. Please let me know your availability over the next few days and I'll confirm a time that works."
-
-"I've attached our Seller Consultation Guide for your review before we meet — it covers our process, how we approach pricing, and what to expect at each stage. It will make our time together even more productive."</div>
+"I'd love to schedule a time for us to connect for a Strategy Session [and walkthrough of the home]. Please let me know your availability over the next few days and I'll confirm a time that works."</div>
       </div>
     </div>
   </div>
@@ -1016,7 +1015,7 @@
             <li>Counter strategically — protect the seller's position without unnecessary friction</li>
             <li>Keep the seller informed at every step — they should never feel they are waiting in the dark</li>
           </ul>
-          <div class="callout callout-action" style="margin-top:10px;"><strong>Multiple Offer Situation?</strong> Refer to the <strong>DBRE Multiple Offer Protocol</strong> for the full seller-side process — including how to notify all buyers, set the highest and best deadline, present offers to the seller, and communicate the outcome to all parties.</div>
+          <div class="callout callout-pending" style="margin-top:10px;"><strong>Pending:</strong> DBRE Multiple Offer Protocol — to be prepared and referenced here once complete.</div>
         </div>
       </div>
 

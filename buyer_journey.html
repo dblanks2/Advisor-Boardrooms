@@ -104,29 +104,29 @@
       .hero h1 { font-size: 28px; }
     }
 
-    /* ── CSS TAB SWITCHING ── */
+    /* tab visibility */
     .panel { display: none; }
     #buyer-intro:checked ~ nav label[for="buyer-intro"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #buyer-intro:checked ~ nav label[for="buyer-intro"] .tab-num, #buyer-intro:checked ~ nav label[for="buyer-intro"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #buyer-intro:checked ~ main #panel-intro { display: block !important; }
+    #buyer-intro:checked ~ nav label[for="buyer-intro"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-intro:checked ~ main #panel-intro { display: block; }
     #buyer-p1:checked ~ nav label[for="buyer-p1"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #buyer-p1:checked ~ nav label[for="buyer-p1"] .tab-num, #buyer-p1:checked ~ nav label[for="buyer-p1"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #buyer-p1:checked ~ main #panel-p1 { display: block !important; }
+    #buyer-p1:checked ~ nav label[for="buyer-p1"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p1:checked ~ main #panel-p1 { display: block; }
     #buyer-p2:checked ~ nav label[for="buyer-p2"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #buyer-p2:checked ~ nav label[for="buyer-p2"] .tab-num, #buyer-p2:checked ~ nav label[for="buyer-p2"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #buyer-p2:checked ~ main #panel-p2 { display: block !important; }
+    #buyer-p2:checked ~ nav label[for="buyer-p2"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p2:checked ~ main #panel-p2 { display: block; }
     #buyer-p3:checked ~ nav label[for="buyer-p3"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #buyer-p3:checked ~ nav label[for="buyer-p3"] .tab-num, #buyer-p3:checked ~ nav label[for="buyer-p3"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #buyer-p3:checked ~ main #panel-p3 { display: block !important; }
+    #buyer-p3:checked ~ nav label[for="buyer-p3"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p3:checked ~ main #panel-p3 { display: block; }
     #buyer-p4:checked ~ nav label[for="buyer-p4"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #buyer-p4:checked ~ nav label[for="buyer-p4"] .tab-num, #buyer-p4:checked ~ nav label[for="buyer-p4"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #buyer-p4:checked ~ main #panel-p4 { display: block !important; }
+    #buyer-p4:checked ~ nav label[for="buyer-p4"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p4:checked ~ main #panel-p4 { display: block; }
     #buyer-p5:checked ~ nav label[for="buyer-p5"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #buyer-p5:checked ~ nav label[for="buyer-p5"] .tab-num, #buyer-p5:checked ~ nav label[for="buyer-p5"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #buyer-p5:checked ~ main #panel-p5 { display: block !important; }
+    #buyer-p5:checked ~ nav label[for="buyer-p5"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p5:checked ~ main #panel-p5 { display: block; }
     #buyer-p6:checked ~ nav label[for="buyer-p6"] { color: var(--gold); border-bottom-color: var(--gold); }
-    #buyer-p6:checked ~ nav label[for="buyer-p6"] .tab-num, #buyer-p6:checked ~ nav label[for="buyer-p6"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
-    #buyer-p6:checked ~ main #panel-p6 { display: block !important; }
+    #buyer-p6:checked ~ nav label[for="buyer-p6"] .phase-tab-num { background: var(--gold); color: var(--charcoal); }
+    #buyer-p6:checked ~ main #panel-p6 { display: block; }
   </style>
 </head>
 <body>
@@ -148,7 +148,6 @@
     <span class="hero-promise">"Where Luxury Service Meets Genuine Connection"</span>
   </div>
 </div>
-
 
 <input type="radio" name="buyer" id="buyer-intro" style="display:none" checked>
 <input type="radio" name="buyer" id="buyer-p1" style="display:none">
@@ -204,14 +203,14 @@
         <div class="step-circle">1</div>
         <div class="step-content">
           <div class="step-title">Lead</div>
-          <div class="step-body-text">The first call — inbound or returned. Discovery. Collecting email. Sending the Buyer Information Sheet with HOME Buyer Guide. Following up until the form is returned.</div>
+          <div class="step-body-text">The first call — inbound or returned. Discovery. Collecting email. Sending the Post-Call Email with portal link, Buyer Readiness assessment callout, HOME Buyer Guide attached, and Buyer Information Sheet link. Following up until the form is returned.</div>
         </div>
       </div>
       <div class="step-block">
         <div class="step-circle">2</div>
         <div class="step-content">
           <div class="step-title">Buyer Consultation</div>
-          <div class="step-body-text">Scheduling the consultation. Sending the Buyer Consultation Guide with the day-before reminder. Conducting the session — including the Working with Real Estate Agents brochure and Buyer Consultation Presentation.</div>
+          <div class="step-body-text">Scheduling the consultation. Sending the Consultation Confirmation email with the Buyer Consultation Guide attached. Day-before reminder. Conducting the session — including the Working with Real Estate Agents brochure and Buyer Consultation Presentation.</div>
         </div>
       </div>
       <div class="step-block">
@@ -305,16 +304,16 @@
       <div class="step-block">
         <div class="step-circle">4</div>
         <div class="step-content">
-          <div class="step-title">Send the Buyer Information Sheet</div>
-          <div class="step-body-text">Send the DBRE Client Portal link alongside the Buyer Information Sheet email, within the same business day — ideally within the hour. Your email should include:</div>
+          <div class="step-title">Send the Post-Call Email</div>
+          <div class="step-body-text">Send within the same business day — ideally within the hour. One email, everything the buyer needs before your next interaction:</div>
           <ul class="step-bullets">
             <li>A warm thank-you for reaching out</li>
-            <li>A link to the Online Buyer Information Sheet</li>
+            <li>The DBRE Client Portal link with a callout to the Buyer Readiness assessment</li>
             <li>The HOME Buyer Guide as an attachment</li>
-            <li>A clear statement that upon receipt you will be in touch to schedule the consultation</li>
+            <li>The Buyer Information Sheet link as the one clear call to action</li>
+            <li>A statement that upon receipt you will be in touch to schedule the consultation</li>
           </ul>
-          <div class="callout callout-note" style="margin-top:10px;"><strong>Note:</strong> Keep this email focused — one clear action for the buyer. The Buyer Consultation Guide is sent with the day-before reminder, when it will actually be read.</div>
-<div class="callout callout-action" style="margin-top:10px;"><strong>Client Portal:</strong> Include the DBRE Client Portal link (<strong>portal.danablanksrealestate.com</strong>) in the first email: <em>"Here is our client resource portal — the Buyer Readiness assessment will help you think through where you are in the process before we meet."</em> During active search, the Mortgage Calculator and Communities guide are particularly useful. The portal remains their resource hub throughout the relationship.</div>
+          <div class="callout callout-note" style="margin-top:10px;"><strong>Note:</strong> One email, one action. The portal and guide provide value; the form is what moves things forward. The Buyer Consultation Guide is sent with the consultation confirmation email, when the appointment is set and the guide will actually be read.</div>
         </div>
       </div>
     </div>
@@ -353,22 +352,24 @@
       </div>
 
       <div class="script-card">
-        <div class="script-card-header"><div class="script-icon">✉️</div><div class="script-card-title">Email — Buyer Information Sheet Send</div></div>
-        <div class="script-card-body">Subject: Your Home Search Starts Here — Buyer Information Sheet Enclosed
+        <div class="script-card-header"><div class="script-icon">✉️</div><div class="script-card-title">Email — Post-Call Email (Buyer)</div></div>
+        <div class="script-card-body">Subject: Your Home Search Starts Here | Dana Blanks Real Estate™
 
-"Thank you again for reaching out — it was a pleasure connecting with you, and I'm looking forward to learning more about what you're searching for."
+"Thank you again for reaching out — it was a pleasure connecting with you. I'm looking forward to learning more about what you're searching for, and I want to make sure you have everything you need before we meet."
 
-"I've also shared a link to our client resource portal — portal.danablanksrealestate.com — where you'll find the Buyer Readiness assessment. Taking a few minutes to explore it before our consultation will help you think through where you are in the process."
+"I've put together a few resources just for you:"
 
-"Please complete our Buyer Information Sheet using the link below — this helps me prepare a consultation that is truly tailored to your goals."
+"DBRE Client Portal — portal.danablanksrealestate.com
+Your dedicated client resource hub — mortgage calculator, community guides, listing search, and more. I'd especially encourage you to complete the Buyer Readiness assessment before we meet. It will help you think through where you are in the process and make our consultation that much more productive."
 
-[Insert Buyer Information Sheet link]
+"HOME Buyer Guide — attached
+A brief overview of what to expect throughout the home buying process — from the first search to closing day."
 
-"I've also attached our HOME Buyer Guide, which gives you an overview of what to expect throughout the home buying process."
+"Please complete the Buyer Information Sheet using the link below — this helps me prepare a consultation that is truly tailored to your goals. Once I receive it, I'll be in touch promptly to confirm our appointment."
 
-"Once I receive your completed form, I'll be in touch promptly to schedule your Buyer Consultation. Please don't hesitate to reach out with any questions in the meantime."
+"Complete the Buyer Information Sheet: [Buyer Information Sheet Link]"
 
-"We look forward to the opportunity to serve you."</div>
+"Or simply reply to this email — I'm here."</div>
       </div>
     </div>
   </div>
@@ -403,7 +404,7 @@
         <div class="step-content">
           <div class="step-title">Schedule the Consultation</div>
           <div class="step-body-text">Upon receipt of the Buyer Information Sheet, reach out promptly. Review the completed form before reaching out — reference it to show you read it. Format is at your discretion — virtual or in-person.</div>
-          <div class="callout callout-action" style="margin-top:10px;"><strong>Key Action:</strong> Send the Buyer Consultation Confirmation email (Message Center) immediately upon booking.</div>
+          <div class="callout callout-action" style="margin-top:10px;"><strong>Key Action:</strong> Send the Consultation Confirmation email (Message Center) immediately upon booking. Attach the Buyer Consultation Guide to this email — the appointment is confirmed, the buyer is engaged, and this is when the guide will actually be read.</div>
         </div>
       </div>
       <div class="step-block">
@@ -419,10 +420,10 @@
       <div class="step-block">
         <div class="step-circle">3</div>
         <div class="step-content">
-          <div class="step-title">Day-Before Reminder — Attach Buyer Consultation Guide</div>
+          <div class="step-title">Day-Before Reminder</div>
           <ul class="step-bullets">
             <li>Send a warm, brief reminder confirming the time and expressing that you are looking forward to it</li>
-            <li>Attach the Buyer Consultation Guide — ask them to review it before the session</li>
+            <li>The Buyer Consultation Guide was already sent with the confirmation email — no attachment needed</li>
           </ul>
         </div>
       </div>
@@ -464,12 +465,12 @@
       </div>
 
       <div class="script-card">
-        <div class="script-card-header"><div class="script-icon">🔔</div><div class="script-card-title">Day-Before Reminder — With Buyer Consultation Guide</div></div>
-        <div class="script-card-body">Subject: See You Tomorrow — Your Buyer Consultation Guide Attached
+        <div class="script-card-header"><div class="script-icon">🔔</div><div class="script-card-title">Day-Before Reminder</div></div>
+        <div class="script-card-body">Subject: See You Tomorrow — Buyer Consultation Confirmed
 
-"Just a quick note to confirm our Buyer Consultation tomorrow at [time]. I'm looking forward to connecting with you. If you haven't explored the client portal yet, the Buyer Readiness assessment is worth a look before we meet — portal.danablanksrealestate.com."
+"Just a quick note to confirm our Buyer Consultation tomorrow at [time]. I'm looking forward to connecting with you."
 
-"I've attached our Buyer Consultation Guide — a brief read before we meet will help us make the most of our time together."
+"If you haven't had a chance to review the Buyer Consultation Guide I sent over, a quick read before we meet will help us make the most of our time together."
 
 "See you tomorrow."</div>
       </div>
@@ -817,7 +818,7 @@
             <li>Keep the buyer informed at every step — they should never feel they are waiting in the dark</li>
             <li>Once a deal is reached: revise the contract to accurately reflect all negotiated terms</li>
           </ul>
-          <div class="callout callout-action" style="margin-top:10px;"><strong>Multiple Offer Situation?</strong> Refer to the <strong>DBRE Multiple Offer Protocol</strong> for the full buyer-side process — including how to advise on strategy, when to use an escalation clause, and how to keep your buyer calm and competitive throughout.</div>
+          <div class="callout callout-pending" style="margin-top:10px;"><strong>Pending:</strong> DBRE Multiple Offer Protocol — to be prepared and referenced here once complete.</div>
         </div>
       </div>
       <div class="step-block">
